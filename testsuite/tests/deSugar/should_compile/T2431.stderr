@@ -17,7 +17,11 @@ T2431.$WRefl
 
 -- RHS size: {terms: 4, types: 8, coercions: 0, joins: 0/0}
 absurd :: forall a. (Int :~: Bool) -> a
+<<<<<<< HEAD
 [GblId, Arity=1, Caf=NoCafRefs, Str=<L,U>b, Unf=OtherCon []]
+=======
+[GblId, Arity=1, Caf=NoCafRefs, Str=<L,U>x, Unf=OtherCon []]
+>>>>>>> Get evaluated-ness right in the back end
 absurd = \ (@ a) (x :: Int :~: Bool) -> case x of { }
 
 -- RHS size: {terms: 1, types: 0, coercions: 0, joins: 0/0}

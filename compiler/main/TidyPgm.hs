@@ -232,11 +232,19 @@ Plan B: include pragmas, make interfaces
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 * Step 1: Figure out which Ids are externally visible
           See Note [Choosing external Ids]
+<<<<<<< HEAD
 
 * Step 2: Gather the externally visible rules, separately from
           the top-level bindings.
           See Note [Finding external rules]
 
+=======
+
+* Step 2: Gather the extenally visible rules, separately from
+          the top-level bindings.
+          See Note [Finding external rules]
+
+>>>>>>> Get evaluated-ness right in the back end
 * Step 3: Tidy the bindings, externalising appropriate Ids
           See Note [Tidy the top-level bindings]
 

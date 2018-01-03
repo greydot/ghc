@@ -76,7 +76,11 @@ Rec {
 -- RHS size: {terms: 28, types: 7, coercions: 0, joins: 0/0}
 T13143.$wg [InlPrag=NOUSERINLINE[2], Occ=LoopBreaker]
   :: Bool -> Bool -> GHC.Prim.Int# -> GHC.Prim.Int#
+<<<<<<< HEAD
 [GblId, Arity=3, Str=<S,1*U><S,1*U><L,U>, Unf=OtherCon []]
+=======
+[GblId, Arity=3, Str=<S,1*U><S,1*U><S,U>, Unf=OtherCon []]
+>>>>>>> Get evaluated-ness right in the back end
 T13143.$wg
   = \ (w :: Bool) (w1 :: Bool) (ww :: GHC.Prim.Int#) ->
       case w of {

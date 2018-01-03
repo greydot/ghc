@@ -62,7 +62,11 @@ Rec {
 -- RHS size: {terms: 40, types: 5, coercions: 0, joins: 0/0}
 Roman.foo_$s$wgo [Occ=LoopBreaker]
   :: GHC.Prim.Int# -> GHC.Prim.Int# -> GHC.Prim.Int#
+<<<<<<< HEAD
 [GblId, Arity=2, Caf=NoCafRefs, Str=<L,A><L,U>, Unf=OtherCon []]
+=======
+[GblId, Arity=2, Caf=NoCafRefs, Str=<S,U><S,U>, Unf=OtherCon []]
+>>>>>>> Get evaluated-ness right in the back end
 Roman.foo_$s$wgo
   = \ (sc :: GHC.Prim.Int#) (sc1 :: GHC.Prim.Int#) ->
       case GHC.Prim.<=# sc1 0# of {
