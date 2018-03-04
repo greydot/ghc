@@ -124,7 +124,7 @@ static void setProgName (char *argv[]);
 
 static void errorRtsOptsDisabled (const char *s);
 
-static uint32_t largestCpuCacheSize(void);
+static StgWord32 largestCpuCacheSize(void);
 
 /* -----------------------------------------------------------------------------
  * Command-line option parsing routines.
@@ -140,6 +140,10 @@ void initRtsFlagsDefaults(void)
     else if (maxStkSize > UINT32_MAX * sizeof(W_))
         maxStkSize = UINT32_MAX * sizeof(W_);
 
+    StgWord32 minAllocAreaSize = largestCpuCacheSize();
+    if (minAllocAreaSize == 0)
+        minAllocAreaSize = 1024 * 1024;
+
     RtsFlags.GcFlags.statsFile          = NULL;
     RtsFlags.GcFlags.giveStats          = NO_GC_STATS;
 
@@ -148,7 +152,7 @@ void initRtsFlagsDefaults(void)
     RtsFlags.GcFlags.stkChunkSize       = (32 * 1024) / sizeof(W_);
     RtsFlags.GcFlags.stkChunkBufferSize = (1 * 1024) / sizeof(W_);
 
-    RtsFlags.GcFlags.minAllocAreaSize   = (1024 * 1024)       / BLOCK_SIZE;
+    RtsFlags.GcFlags.minAllocAreaSize   = minAllocAreaSize / BLOCK_SIZE;
     RtsFlags.GcFlags.largeAllocLim      = 0; /* defaults to minAllocAreasize */
     RtsFlags.GcFlags.nurseryChunkSize   = 0;
     RtsFlags.GcFlags.minOldGenSize      = (1024 * 1024)       / BLOCK_SIZE;
@@ -2348,12 +2352,11 @@ void freeRtsArgs(void)
     freeRtsArgv();
 }
 
-#include <stddef.h>
-#include <stdio.h>
-#include <unistd.h>
-
-static uint32_t largestCpuCacheSize(void)
+// Return the size in bytes of the largest CPU cache on the system.
+// Returns 0 if the cache size can't be determined.
+static StgWord32 largestCpuCacheSize(void)
 {
+#if defined(linux_HOST_OS)
     int args[4] = {
         _SC_LEVEL4_CACHE_SIZE,
         _SC_LEVEL3_CACHE_SIZE,
@@ -2362,10 +2365,10 @@ static uint32_t largestCpuCacheSize(void)
     };
     for (int i = 0; i < 4; i++) {
         long size = sysconf(args[i]);
-            if (size > 0L) {
-                return (uint32_t)size;
-        }
+        if (size > 0L)
+            return (StgWord32)size;
     }
+#endif
     return 0;
 }
 
